@@ -10,7 +10,7 @@ import org.hibernate.annotations.FetchMode
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "user", schema = "public")
+@Table(name = "\"user\"", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class User(

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor
 import lombok.Setter
 
 @Entity
-@Table(name = "group", schema = "public")
+@Table(name = "\"group\"", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class Group(
