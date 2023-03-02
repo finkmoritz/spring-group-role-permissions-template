@@ -22,12 +22,13 @@ class WebSecurityConfig {
             .authorizeHttpRequests { requests ->
                 requests
                     .requestMatchers(toH2Console()).permitAll() //TODO remove for PROD
-                    .requestMatchers(HttpMethod.POST, "/api/user").permitAll()
-                    .anyRequest().authenticated()
+                    .requestMatchers(HttpMethod.POST, "/api/user/signUp").permitAll()
+                    .anyRequest().permitAll() //.authenticated()
                     .and()
                     .httpBasic()
                     .and().csrf().ignoringRequestMatchers(toH2Console()) //TODO remove for PROD
             }
+            .csrf().disable()
             .build()
     }
 }

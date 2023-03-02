@@ -3,8 +3,9 @@ CREATE TABLE "user" (
     username VARCHAR NOT NULL,
     password VARCHAR NOT NULL
 );
+CREATE SEQUENCE user_seq start with 1 increment by 50;
 
-CREATE TABLE "group" (
+CREATE TABLE "group (
     id INTEGER NOT NULL PRIMARY KEY,
     name VARCHAR NOT NULL
 );
