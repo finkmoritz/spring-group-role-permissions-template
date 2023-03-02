@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "role_permission", schema = "public")
+@Table(name = "\"role_permission\"", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class RolePermission(

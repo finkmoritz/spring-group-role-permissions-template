@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "group_user_role", schema = "public")
+@Table(name = "\"group_user_role\"", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class GroupUserRole(

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor
 import lombok.Setter
 
 @Entity
-@Table(name = "permission", schema = "public")
+@Table(name = "\"permission\"", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class Permission(

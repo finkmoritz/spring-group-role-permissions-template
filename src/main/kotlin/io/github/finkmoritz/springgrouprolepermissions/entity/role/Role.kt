@@ -8,7 +8,7 @@ import lombok.Setter
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "role", schema = "public")
+@Table(name = "\"role\"", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class Role(
@@ -22,7 +22,7 @@ class Role(
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "role_permission",
+        name = "\"role_permission\"",
         joinColumns = [JoinColumn(name = "role_id")],
         inverseJoinColumns = [JoinColumn(name = "permission_id")]
     )
