@@ -21,7 +21,6 @@ class User(
 
     @Getter
     @Setter
-    @Column(unique = true)
     var username: String,
 
     @Getter

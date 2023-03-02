@@ -8,12 +8,13 @@ import lombok.Setter
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "\"role\"", schema = "public")
+@Table(name = "role", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class Role(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
+    @SequenceGenerator(name = "role_seq", sequenceName = "role_seq")
     var id: Long?,
 
     @Getter
@@ -22,7 +23,7 @@ class Role(
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "\"role_permission\"",
+        name = "role_permission",
         joinColumns = [JoinColumn(name = "role_id")],
         inverseJoinColumns = [JoinColumn(name = "permission_id")]
     )

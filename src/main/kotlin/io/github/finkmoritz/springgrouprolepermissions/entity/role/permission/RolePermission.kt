@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "\"role_permission\"", schema = "public")
+@Table(name = "role_permission", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class RolePermission(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_permission_seq")
+    @SequenceGenerator(name = "role_permission_seq", sequenceName = "role_permission_seq")
     var id: Long?,
 
     @Embedded

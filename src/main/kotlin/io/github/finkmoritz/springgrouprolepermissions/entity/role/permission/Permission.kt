@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor
 import lombok.Setter
 
 @Entity
-@Table(name = "\"permission\"", schema = "public")
+@Table(name = "permission", schema = "public")
 @AllArgsConstructor
 @NoArgsConstructor
 class Permission(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "permission_seq")
+    @SequenceGenerator(name = "permission_seq", sequenceName = "permission_seq")
     var id: Long?,
 
     @Getter

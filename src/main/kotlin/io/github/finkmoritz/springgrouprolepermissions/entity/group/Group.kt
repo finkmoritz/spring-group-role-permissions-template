@@ -12,7 +12,8 @@ import lombok.Setter
 @NoArgsConstructor
 class Group(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_seq")
+    @SequenceGenerator(name = "group_seq", sequenceName = "group_seq")
     var id: Long?,
 
     @Getter
