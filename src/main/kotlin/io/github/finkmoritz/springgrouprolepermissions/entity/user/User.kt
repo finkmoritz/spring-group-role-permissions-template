@@ -1,6 +1,5 @@
 package io.github.finkmoritz.springgrouprolepermissions.entity.user
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import io.github.finkmoritz.springgrouprolepermissions.entity.group.role.GroupUserRole
 import lombok.AllArgsConstructor
 import lombok.Getter
@@ -26,7 +25,6 @@ class User(
 
     @Getter
     @Setter
-    @JsonIgnore
     var password: String,
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "embeddedUser.user", orphanRemoval = true)
