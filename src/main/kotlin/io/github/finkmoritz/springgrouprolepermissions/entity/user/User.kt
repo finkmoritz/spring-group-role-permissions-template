@@ -30,4 +30,25 @@ class User(
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "embeddedUser.user", orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
     var groupUserRoles: Set<GroupUserRole> = setOf(),
-)
+) {
+    constructor(
+        username: String,
+        password: String,
+    ) : this(
+        null,
+        username,
+        password,
+    )
+
+    fun copyWith(
+        id: Long? = this.id,
+        username: String = this.username,
+        password: String = this.password,
+    ) : User {
+        return User(
+            id,
+            username,
+            password,
+        )
+    }
+}
