@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*
 import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
+import org.springframework.web.client.HttpClientErrorException
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -81,21 +82,19 @@ class UserSystemTest : AbstractSystemTest() {
         user = responseUser
     }
 
-    /*@Test
+    @Test
     @Order(3)
     fun `given existing user when updating user without token then fail`() {
         assertThrows<HttpClientErrorException> {
-            val modifiedUser = UserDTO(
-                id = user!!.id,
-                username = "ModifiedTestUser",
-                email = "modifiedtestuser@test.com"
+            val modifiedUser = user.copyWith(
+                username = "modifiedUsername",
             )
 
             sendRequest(
-                "$baseUrlUser/",
-                HttpMethod.PUT,
-                UserDTO::class.java,
-                modifiedUser,
+                url = baseUrlUser,
+                httpMethod = HttpMethod.PUT,
+                responseType = User::class.java,
+                body = modifiedUser,
             )
         }
     }
@@ -104,14 +103,13 @@ class UserSystemTest : AbstractSystemTest() {
     @Order(4)
     fun `given existing user when deleting user without token then fail`() {
         assertThrows<HttpClientErrorException> {
-            sendRequest(
-                "$baseUrlUser/${user!!.id}",
-                HttpMethod.DELETE,
-                Void::class.java,
-                null,
+            sendRequest<Void, Void>(
+                url = "$baseUrlUser/${user.id}",
+                httpMethod = HttpMethod.DELETE,
+                responseType = Void::class.java,
             )
         }
-    }*/
+    }
 
     @Test
     @Order(5)

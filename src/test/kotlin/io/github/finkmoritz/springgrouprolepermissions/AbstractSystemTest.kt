@@ -20,7 +20,7 @@ abstract class AbstractSystemTest {
             url: String,
             httpMethod: HttpMethod,
             responseType: Class<T>,
-            body: U?,
+            body: U? = null,
             vararg uriVariables: Any,
             headers: Map<String, String>? = null,
         ): ResponseEntity<T> {
