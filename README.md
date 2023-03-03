@@ -10,3 +10,9 @@ but only the "User" role in group "B".
 ```
 mvn spring-boot:run
 ```
+
+## Tests
+
+```
+mvn test
+```
