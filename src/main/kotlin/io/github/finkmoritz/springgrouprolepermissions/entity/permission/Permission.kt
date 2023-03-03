@@ -1,4 +1,4 @@
-package io.github.finkmoritz.springgrouprolepermissions.entity.role.permission
+package io.github.finkmoritz.springgrouprolepermissions.entity.permission
 
 import jakarta.persistence.*
 import lombok.AllArgsConstructor
@@ -20,12 +20,10 @@ class Permission(
     @Setter
     var name: String
 ) {
-    enum class PermissionValue {
-        READ_GROUP_MEMBERS,
-        UPDATE_GROUP,
-        DELETE_GROUP,
-        CREATE_GROUP_USER_ROLE,
-        DELETE_GROUP_USER_ROLE,
+    companion object {
+        const val ID_READ_GROUP: Long = 0
+        const val ID_UPDATE_GROUP: Long = 1
+        const val ID_DELETE_GROUP: Long = 2
     }
 
     override fun equals(other: Any?): Boolean {

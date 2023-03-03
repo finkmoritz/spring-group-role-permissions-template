@@ -1,6 +1,6 @@
 package io.github.finkmoritz.springgrouprolepermissions.entity.role
 
-import io.github.finkmoritz.springgrouprolepermissions.entity.role.permission.Permission
+import io.github.finkmoritz.springgrouprolepermissions.entity.permission.Permission
 import lombok.AllArgsConstructor
 import lombok.Getter
 import lombok.NoArgsConstructor
@@ -29,9 +29,9 @@ class Role(
     )
     var permissions: Set<Permission>
 ) {
-    enum class RoleValue {
-        GROUP_ADMIN,
-        GROUP_MEMBER,
+    companion object {
+        const val ID_ADMIN: Long = 0
+        const val ID_MEMBER: Long = 1
     }
 
     override fun equals(other: Any?): Boolean {

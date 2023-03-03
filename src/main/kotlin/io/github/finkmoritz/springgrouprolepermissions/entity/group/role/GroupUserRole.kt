@@ -1,5 +1,6 @@
 package io.github.finkmoritz.springgrouprolepermissions.entity.group.role
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import io.github.finkmoritz.springgrouprolepermissions.entity.group.EmbeddedGroup
 import io.github.finkmoritz.springgrouprolepermissions.entity.role.EmbeddedRole
 import io.github.finkmoritz.springgrouprolepermissions.entity.user.EmbeddedUser
@@ -21,6 +22,7 @@ class GroupUserRole(
     var embeddedGroup: EmbeddedGroup,
 
     @Embedded
+    @JsonIgnore
     var embeddedUser: EmbeddedUser,
 
     @Embedded
@@ -29,11 +31,11 @@ class GroupUserRole(
     constructor(
         groupId: Long,
         userId: Long,
-        groupRoleId: Long,
+        roleId: Long,
     ): this(
         null,
         EmbeddedGroup(groupId),
         EmbeddedUser(userId),
-        EmbeddedRole(groupRoleId),
+        EmbeddedRole(roleId),
     )
 }

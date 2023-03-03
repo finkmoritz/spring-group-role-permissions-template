@@ -1,4 +1,4 @@
-package io.github.finkmoritz.springgrouprolepermissions.entity.role.permission
+package io.github.finkmoritz.springgrouprolepermissions.entity.permission
 
 import io.github.finkmoritz.springgrouprolepermissions.entity.role.EmbeddedRole
 import lombok.AllArgsConstructor
