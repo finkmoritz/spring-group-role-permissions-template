@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query
 
 
 interface UserRepository : JpaRepository<User, Long> {
+    fun findByUsername(username: String): User?
+
     @Query(
         "select u " +
                 "from User u " +

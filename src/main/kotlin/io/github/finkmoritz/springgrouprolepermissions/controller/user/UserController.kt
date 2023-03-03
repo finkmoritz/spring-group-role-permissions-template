@@ -6,6 +6,7 @@ import io.github.finkmoritz.springgrouprolepermissions.repository.user.UserRepos
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
@@ -16,6 +17,7 @@ import java.util.*
 @RequestMapping("/api/user")
 class UserController(
     private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder,
 ) {
     @GetMapping
     fun get(
@@ -29,7 +31,13 @@ class UserController(
     fun signUp(
         @RequestBody user: User,
     ): ResponseEntity<Any> {
-        val newUser = userRepository.save(user)
+        if (userRepository.findByUsername(user.username) != null) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists")
+        }
+        var newUser = user.copyWith(
+            password = passwordEncoder.encode(user.password)
+        )
+        newUser = userRepository.save(newUser)
         return ResponseEntity.ok(newUser)
     }
 
@@ -39,7 +47,7 @@ class UserController(
         @AuthenticationPrincipal principal: MyUserPrincipal,
     ): ResponseEntity<User> {
         if (user.id != principal.user.id) {
-            throw ResponseStatusException(HttpStatus.FORBIDDEN)
+            throw ResponseStatusException(HttpStatus.FORBIDDEN, "Cannot update other user")
         }
         val updatedUser = userRepository.save(user)
         return ResponseEntity.ok(updatedUser)
@@ -51,7 +59,7 @@ class UserController(
         @AuthenticationPrincipal principal: MyUserPrincipal,
     ): ResponseEntity<Void> {
         if (userId != principal.user.id) {
-            throw ResponseStatusException(HttpStatus.FORBIDDEN)
+            throw ResponseStatusException(HttpStatus.FORBIDDEN, "Cannot delete other user")
         }
         userRepository.deleteById(userId)
         return ResponseEntity.ok().build()

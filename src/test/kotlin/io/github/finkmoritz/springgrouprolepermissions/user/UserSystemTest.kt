@@ -4,7 +4,6 @@ import io.github.finkmoritz.springgrouprolepermissions.AbstractSystemTest
 import io.github.finkmoritz.springgrouprolepermissions.entity.user.User
 import org.junit.jupiter.api.*
 import org.springframework.context.annotation.Profile
-import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 
@@ -14,14 +13,13 @@ import org.springframework.http.HttpStatus
 @Profile("!prod")
 class UserSystemTest : AbstractSystemTest() {
     private val baseUrlUser: String = "$baseUrl/api/user"
-    private var user: User? = null
-
-    private val username = "testuser"
-    private val password = "testpassword"
+    private lateinit var user: User
+    private val password = "password"
 
     @Test
     @Order(0)
     fun `given user when signing up then succeed`() {
+        val username = "username"
         user = User(
             username = username,
             password = password,
@@ -33,49 +31,52 @@ class UserSystemTest : AbstractSystemTest() {
             body = user,
         )
         Assertions.assertEquals(HttpStatus.OK, response.statusCode)
-        user = response.body
+        user = response.body!!
 
-        Assertions.assertNotNull(user?.id)
-        Assertions.assertEquals(username, user?.username)
+        Assertions.assertNotNull(user.id)
+        Assertions.assertEquals(username, user.username)
     }
 
     @Test
     @Order(1)
-    fun `given user when signing in then succeed`() {
-        val response = sendRequest(
+    fun `given user when getting the user then succeed`() {
+        val id = user.id!!
+        val response = sendRequestWithBasicAuth(
+            username = user.username,
+            password = password,
             url = "$baseUrlUser?id={id}",
             httpMethod = HttpMethod.GET,
             responseType = User::class.java,
             body = user,
-            uriVariables = arrayOf(user?.id!!)
+            uriVariables = arrayOf(id),
         )
         Assertions.assertEquals(HttpStatus.OK, response.statusCode)
-        user = response.body
+        user = response.body!!
 
-        Assertions.assertNotNull(user?.id)
-        Assertions.assertEquals(username, user?.username)
+        Assertions.assertEquals(id, user.id)
     }
 
     @Test
     @Order(2)
     fun `given existing user when updating user then succeed`() {
         val modifiedUsername = "modifiedtestusername"
-        val modifiedUser = user?.copyWith(
+        val modifiedUser = user.copyWith(
             username = modifiedUsername,
         )
 
-        val response = sendRequest(
-            url = "$baseUrlUser/",
+        val response = sendRequestWithBasicAuth(
+            username = user.username,
+            password = password,
+            url = baseUrlUser,
             httpMethod = HttpMethod.PUT,
             responseType = User::class.java,
             body = modifiedUser,
-            headers = mapOf(HttpHeaders.AUTHORIZATION to "Basic $username:$password")
         )
         Assertions.assertEquals(HttpStatus.OK, response.statusCode)
-        val responseUser = response.body
+        val responseUser = response.body!!
 
-        Assertions.assertEquals(responseUser?.id, user?.id)
-        Assertions.assertEquals(responseUser?.username, modifiedUser?.username)
+        Assertions.assertEquals(responseUser.id, user.id)
+        Assertions.assertEquals(responseUser.username, modifiedUser.username)
 
         user = responseUser
     }
@@ -110,15 +111,18 @@ class UserSystemTest : AbstractSystemTest() {
                 null,
             )
         }
-    }
+    }*/
 
     @Test
     @Order(5)
     fun `given existing user when deleting user then succeed`() {
-        val response = deleteUser()
-
+        val response = sendRequestWithBasicAuth<Void, Void>(
+            username = user.username,
+            password = password,
+            url = "$baseUrlUser/${user.id}",
+            httpMethod = HttpMethod.DELETE,
+            responseType = Void::class.java,
+        )
         Assertions.assertEquals(HttpStatus.OK, response.statusCode)
-
-        Assertions.assertNotNull(token)
-    }*/
+    }
 }

@@ -15,7 +15,7 @@ class MyUserPrincipal(
     }
 
     override fun getPassword(): String {
-        return "{noop}" + user.password //TODO add real encryption
+        return user.password
     }
 
     override fun getUsername(): String {

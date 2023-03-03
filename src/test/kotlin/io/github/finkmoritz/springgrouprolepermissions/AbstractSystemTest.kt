@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
+import java.util.*
 
 abstract class AbstractSystemTest {
     companion object {
@@ -33,6 +34,29 @@ abstract class AbstractSystemTest {
                 HttpEntity<U>(body, hdrs),
                 responseType,
                 uriVariables,
+            )
+        }
+
+        @JvmStatic
+        protected fun <T, U> sendRequestWithBasicAuth(
+            username: String,
+            password: String,
+            url: String,
+            httpMethod: HttpMethod,
+            responseType: Class<T>,
+            body: U? = null,
+            vararg uriVariables: Any,
+            headers: Map<String, String>? = mutableMapOf(),
+        ): ResponseEntity<T> {
+            val hdrs = headers?.toMutableMap() ?: mutableMapOf()
+            hdrs[HttpHeaders.AUTHORIZATION] = "Basic " + Base64.getEncoder().encodeToString("$username:$password".toByteArray())
+            return sendRequest(
+                url = url,
+                httpMethod = httpMethod,
+                responseType = responseType,
+                body = body,
+                uriVariables = uriVariables,
+                headers = hdrs,
             )
         }
     }
