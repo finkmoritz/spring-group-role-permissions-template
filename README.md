@@ -11,8 +11,9 @@ but only the "User" role in group "B".
 mvn spring-boot:run
 ```
 
-## Tests
+## System tests
 
+Perform system tests once the application is up and running:
 ```
 mvn test
 ```

@@ -1,6 +1,7 @@
 package io.github.finkmoritz.springgrouprolepermissions.controller.group
 
 import io.github.finkmoritz.springgrouprolepermissions.auth.MyUserPrincipal
+import io.github.finkmoritz.springgrouprolepermissions.auth.RequireAuth
 import io.github.finkmoritz.springgrouprolepermissions.entity.group.Group
 import io.github.finkmoritz.springgrouprolepermissions.entity.group.role.GroupUserRole
 import io.github.finkmoritz.springgrouprolepermissions.entity.role.Role
@@ -19,7 +20,7 @@ class GroupController(
     private val groupRepository: GroupRepository,
     private val groupUserRoleRepository: GroupUserRoleRepository,
 ) {
-    //@RequireGroupRolePermission(requireGroupPermissions = [Permission.PermissionValue.READ_GROUP])
+    @RequireAuth(requireGroupPermissions = ["READ_GROUP"])
     @GetMapping("/{groupId}")
     fun get(
         @PathVariable groupId: Long,
@@ -40,7 +41,7 @@ class GroupController(
         return ResponseEntity.ok(newGroup)
     }
 
-    //@RequireGroupRolePermission(requireGroupPermissions = [Permission.PermissionValue.UPDATE_GROUP])
+    @RequireAuth(requireGroupPermissions = ["UPDATE_GROUP"])
     @PutMapping("/{groupId}")
     fun update(
         @PathVariable groupId: Long,
@@ -51,7 +52,7 @@ class GroupController(
         return ResponseEntity.ok(updatedGroup)
     }
 
-    //@RequireGroupRolePermission(requireGroupPermissions = [Permission.PermissionValue.DELETE_GROUP])
+    @RequireAuth(requireGroupPermissions = ["DELETE_GROUP"])
     @DeleteMapping("/{groupId}")
     fun delete(
         @PathVariable groupId: Long,
