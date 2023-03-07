@@ -1,6 +1,5 @@
 package io.github.finkmoritz.springgrouprolepermissions.configuration
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -25,17 +24,12 @@ class WebSecurityConfig(
     @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
-            .headers().frameOptions().sameOrigin() //TODO remove for PROD
-            .and()
             .authorizeHttpRequests { requests ->
                 requests
-                    .requestMatchers(toH2Console()).permitAll() //TODO remove for PROD
                     .requestMatchers(HttpMethod.POST, "/api/user/signUp").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .httpBasic()
-                    .and()
-                    .csrf().ignoringRequestMatchers(toH2Console()) //TODO remove for PROD
             }
             .csrf().disable()
             .build()
