@@ -1,4 +1,4 @@
-package io.github.finkmoritz.springgrouprolepermissions.entity.group.role
+package io.github.finkmoritz.springgrouprolepermissions.entity.groupuserrole
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import io.github.finkmoritz.springgrouprolepermissions.entity.group.EmbeddedGroup

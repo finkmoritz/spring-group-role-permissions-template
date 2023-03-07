@@ -3,10 +3,9 @@ package io.github.finkmoritz.springgrouprolepermissions.controller.group
 import io.github.finkmoritz.springgrouprolepermissions.auth.MyUserPrincipal
 import io.github.finkmoritz.springgrouprolepermissions.auth.RequireAuth
 import io.github.finkmoritz.springgrouprolepermissions.entity.group.Group
-import io.github.finkmoritz.springgrouprolepermissions.entity.group.role.GroupUserRole
-import io.github.finkmoritz.springgrouprolepermissions.entity.role.Role
+import io.github.finkmoritz.springgrouprolepermissions.entity.groupuserrole.GroupUserRole
 import io.github.finkmoritz.springgrouprolepermissions.repository.group.GroupRepository
-import io.github.finkmoritz.springgrouprolepermissions.repository.group.role.GroupUserRoleRepository
+import io.github.finkmoritz.springgrouprolepermissions.repository.groupuserrole.GroupUserRoleRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Component

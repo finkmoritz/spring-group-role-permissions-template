@@ -1,6 +1,6 @@
 package io.github.finkmoritz.springgrouprolepermissions.entity.user
 
-import io.github.finkmoritz.springgrouprolepermissions.entity.group.role.GroupUserRole
+import io.github.finkmoritz.springgrouprolepermissions.entity.groupuserrole.GroupUserRole
 import lombok.AllArgsConstructor
 import lombok.Getter
 import lombok.NoArgsConstructor
