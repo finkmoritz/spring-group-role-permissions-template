@@ -29,11 +29,6 @@ class Role(
     )
     var permissions: Set<Permission>
 ) {
-    companion object {
-        const val ID_ADMIN: Long = 0
-        const val ID_MEMBER: Long = 1
-    }
-
     override fun equals(other: Any?): Boolean {
         if (other !is Role) {
             return false

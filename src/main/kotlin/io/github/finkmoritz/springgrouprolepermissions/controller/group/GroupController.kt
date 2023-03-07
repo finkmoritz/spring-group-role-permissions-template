@@ -36,8 +36,8 @@ class GroupController(
         @AuthenticationPrincipal principal: MyUserPrincipal,
     ): ResponseEntity<Group> {
         val newGroup = groupRepository.save(group)
-        groupUserRoleRepository.save(GroupUserRole(newGroup.id!!, principal.user.id!!, Role.ID_ADMIN))
-        groupUserRoleRepository.save(GroupUserRole(newGroup.id!!, principal.user.id!!, Role.ID_MEMBER))
+        groupUserRoleRepository.save(GroupUserRole(newGroup.id!!, principal.user.id!!, 0)) // ADMIN
+        groupUserRoleRepository.save(GroupUserRole(newGroup.id!!, principal.user.id!!, 1)) // MEMBER
         return ResponseEntity.ok(newGroup)
     }
 

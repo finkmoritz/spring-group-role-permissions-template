@@ -20,12 +20,6 @@ class Permission(
     @Setter
     var name: String
 ) {
-    companion object {
-        const val ID_READ_GROUP: Long = 0
-        const val ID_UPDATE_GROUP: Long = 1
-        const val ID_DELETE_GROUP: Long = 2
-    }
-
     override fun equals(other: Any?): Boolean {
         if (other !is Permission) {
             return false
