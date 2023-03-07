@@ -14,9 +14,18 @@ class Group(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_seq")
     @SequenceGenerator(name = "group_seq", sequenceName = "group_seq")
-    var id: Long?,
+    var id: Long? = null,
 
     @Getter
     @Setter
     var name: String,
-)
+) {
+    fun copyWith(
+        name: String?,
+    ): Group {
+        return Group(
+            id = this.id,
+            name = name ?: this.name,
+        )
+    }
+}

@@ -17,7 +17,7 @@ class User(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq")
-    var id: Long?,
+    var id: Long? = null,
 
     @Getter
     @Setter
@@ -31,15 +31,6 @@ class User(
     @Fetch(FetchMode.JOIN)
     var groupUserRoles: Set<GroupUserRole> = setOf(),
 ) {
-    constructor(
-        username: String,
-        password: String,
-    ) : this(
-        null,
-        username,
-        password,
-    )
-
     fun copyWith(
         id: Long? = this.id,
         username: String = this.username,
