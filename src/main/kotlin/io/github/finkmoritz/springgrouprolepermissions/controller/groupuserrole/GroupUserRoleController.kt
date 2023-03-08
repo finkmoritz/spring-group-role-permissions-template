@@ -17,13 +17,13 @@ import java.util.*
 
 @RestController
 @Component
-@RequireAuth(requireGroupRoles = ["ADMIN"])
 @RequestMapping("/api/groupuserrole/group/{groupId}")
 class GroupUserRoleController(
     private val groupUserRoleRepository: GroupUserRoleRepository,
     private val userRepository: UserRepository,
     private val roleRepository: RoleRepository,
 ) {
+    @RequireAuth(requireGroupRoles = ["ADMIN"])
     @GetMapping
     fun get(
         @PathVariable groupId: Long,
@@ -35,6 +35,7 @@ class GroupUserRoleController(
         return ResponseEntity.ok(groupUserRoles)
     }
 
+    @RequireAuth(requireGroupRoles = ["ADMIN"])
     @GetMapping("/user/{userId}")
     fun getByUserId(
         @PathVariable groupId: Long,
@@ -48,6 +49,7 @@ class GroupUserRoleController(
         return ResponseEntity.ok(groupUserRoles)
     }
 
+    @RequireAuth(requireGroupRoles = ["ADMIN"])
     @GetMapping("/role/{roleId}")
     fun getByRoleId(
         @PathVariable groupId: Long,
@@ -61,6 +63,7 @@ class GroupUserRoleController(
         return ResponseEntity.ok(groupUserRoles)
     }
 
+    @RequireAuth(requireGroupRoles = ["ADMIN"])
     @PostMapping("/user/{userId}/role/{roleId}")
     fun create(
         @PathVariable groupId: Long,
@@ -82,6 +85,7 @@ class GroupUserRoleController(
         return ResponseEntity.ok().build()
     }
 
+    @RequireAuth(requireGroupRoles = ["ADMIN"])
     @DeleteMapping("/user/{userId}/role/{roleId}")
     fun delete(
         @PathVariable groupId: Long,

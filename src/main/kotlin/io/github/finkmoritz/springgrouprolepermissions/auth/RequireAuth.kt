@@ -14,7 +14,7 @@ package io.github.finkmoritz.springgrouprolepermissions.auth
  * defined per Group, the method call MUST CONTAIN the groupId (Long) !
  */
 @Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
+@Target(AnnotationTarget.FUNCTION)
 annotation class RequireAuth(
     val requireGroupRoles: Array<String> = [],
     val requireGroupPermissions: Array<String> = [],
